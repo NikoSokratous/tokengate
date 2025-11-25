@@ -8,7 +8,7 @@
 TokenGate is a lightweight, self-hosted reverse proxy that enforces per-session spending limits on LLM API usage. It prevents uncontrolled agent loops (e.g., LangGraph, LangChain) from generating excessive OpenAI charges by intercepting requests before they reach the LLM provider.
 
 > **Available on Docker Hub**: `docker pull nsokra02/tokengate`  
-> **Source Code**: [GitHub Repository](https://github.com/yourusername/tokengateway)
+> **Source Code**: [GitHub Repository](https://github.com/NikoSokratous/tokengateway)
 
 ## Features
 
@@ -49,7 +49,7 @@ docker run -d --name tokengate \
   -p 8000:8000 \
   --env-file .env \
   -e REDIS_URL=redis://redis:6379 \
-  yourusername/tokengate:latest
+  nsokra02/tokengate:latest
 
 # 3. Verify it's running
 curl http://localhost:8000/health
@@ -59,7 +59,7 @@ curl http://localhost:8000/health
 
 ```bash
 # 1. Download docker-compose.yml
-curl -O https://raw.githubusercontent.com/yourusername/tokengateway/main/docker-compose.yml
+curl -O https://raw.githubusercontent.com/nsokra02/tokengateway/main/docker-compose.yml
 
 # 2. Create .env file
 cat > .env << EOF
@@ -79,7 +79,7 @@ curl http://localhost:8000/health
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/yourusername/tokengateway.git
+git clone https://github.com/NikoSokratous/tokengateway.git
 cd tokengateway
 
 # 2. Create .env from example
@@ -387,7 +387,7 @@ tokengateway/
 
 ### 🐳 Docker Hub (Production)
 ```bash
-docker pull yourusername/tokengate:latest
+docker pull nsokra02/tokengate:latest
 ```
 - ✅ Pre-built and tested
 - ✅ Multi-platform (AMD64, ARM64)
@@ -396,7 +396,7 @@ docker pull yourusername/tokengate:latest
 
 ### 📦 GitHub (Development)
 ```bash
-git clone https://github.com/yourusername/tokengateway.git
+git clone https://github.com/NikoSokratous/tokengateway.git
 ```
 - ✅ Full source code access
 - ✅ Customize and extend
@@ -407,19 +407,19 @@ git clone https://github.com/yourusername/tokengateway.git
 
 TokenGate is available as a Docker image for easy deployment:
 
-**Image**: `yourusername/tokengate`  
+**Image**: `nsokra02/tokengate`  
 **Tags**: `latest`, `1.0.0`, `1.0`, `1`  
 **Platforms**: `linux/amd64`, `linux/arm64`
 
 ```bash
 # Pull the image
-docker pull yourusername/tokengate:latest
+docker pull nsokra02/tokengate:latest
 
 # Run with environment variables
 docker run -p 8000:8000 \
   -e OPENAI_API_KEY=your-key \
   -e REDIS_URL=redis://your-redis:6379 \
-  yourusername/tokengate:latest
+  nsokra02/tokengate:latest
 ```
 
 See [DOCKER_RELEASE.md](DOCKER_RELEASE.md) for publishing instructions.
@@ -439,8 +439,8 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for gui
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/tokengateway/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/tokengateway/discussions)
+- **Issues**: [GitHub Issues](https://github.com/NikoSokratous/tokengateway/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/NikoSokratous/tokengateway/discussions)
 - **Documentation**: Check the documentation files in this repo
 - **Logs**: Review structured JSON logs for debugging
 
@@ -464,5 +464,6 @@ Future enhancements:
 ---
 
 **Made with ❤️ for the AI community**
+
 
 
