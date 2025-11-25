@@ -7,7 +7,7 @@
 
 TokenGate is a lightweight, self-hosted reverse proxy that enforces per-session spending limits on LLM API usage. It prevents uncontrolled agent loops (e.g., LangGraph, LangChain) from generating excessive OpenAI charges by intercepting requests before they reach the LLM provider.
 
-> **Available on Docker Hub**: Coming soon at `docker pull yourusername/tokengate`  
+> **Available on Docker Hub**: `docker pull nsokra02/tokengate`  
 > **Source Code**: [GitHub Repository](https://github.com/yourusername/tokengateway)
 
 ## Features
@@ -464,4 +464,5 @@ Future enhancements:
 ---
 
 **Made with ❤️ for the AI community**
+
 
