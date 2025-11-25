@@ -1,0 +1,2 @@
+"""Pricing calculation module"""
+

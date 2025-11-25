@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokenGate Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f7fa;
+            color: #2d3748;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: #718096;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .stat-card .sub-value {
+            font-size: 0.875rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+        
+        .sessions-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-header h2 {
+            font-size: 1.25rem;
+        }
+        
+        .refresh-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        
+        .refresh-btn:hover {
+            background: #5a67d8;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: #718096;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #48bb78;
+            transition: width 0.3s;
+        }
+        
+        .progress-fill.warning {
+            background: #ed8936;
+        }
+        
+        .progress-fill.danger {
+            background: #f56565;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .badge.frozen {
+            background: #fed7d7;
+            color: #c53030;
+        }
+        
+        .badge.active {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-small {
+            padding: 0.25rem 0.75rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        
+        .btn-unfreeze {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .btn-reset {
+            background: #718096;
+            color: white;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #718096;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔐 TokenGate Dashboard</h1>
+        <p>Monitor and manage LLM API spending limits</p>
+    </div>
+    
+    <div class="container">
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Sessions</h3>
+                <div class="value" id="totalSessions">--</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Active Sessions</h3>
+                <div class="value" id="activeSessions">--</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Frozen Sessions</h3>
+                <div class="value" id="frozenSessions">--</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Total Budget</h3>
+                <div class="value" id="totalBudget">$--</div>
+                <div class="sub-value">
+                    <span id="totalSpent">$--</span> spent
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sessions Table -->
+        <div class="sessions-section">
+            <div class="section-header">
+                <h2>Active Sessions</h2>
+                <button class="refresh-btn" onclick="loadData()">Refresh</button>
+            </div>
+            
+            <div id="sessionsContainer">
+                <div class="loading">Loading sessions...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        async function loadData() {
+            try {
+                // Load stats
+                const statsResponse = await fetch('/api/dashboard/stats');
+                const stats = await statsResponse.json();
+                
+                document.getElementById('totalSessions').textContent = stats.total_sessions;
+                document.getElementById('activeSessions').textContent = stats.active_sessions;
+                document.getElementById('frozenSessions').textContent = stats.frozen_sessions;
+                document.getElementById('totalBudget').textContent = `$${stats.total_budget.toFixed(2)}`;
+                document.getElementById('totalSpent').textContent = `$${stats.total_spent.toFixed(2)}`;
+                
+                // Load sessions
+                const sessionsResponse = await fetch('/api/dashboard/sessions');
+                const sessionsData = await sessionsResponse.json();
+                
+                renderSessions(sessionsData.sessions);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('sessionsContainer').innerHTML = 
+                    '<div class="empty-state">Error loading data</div>';
+            }
+        }
+        
+        function renderSessions(sessions) {
+            const container = document.getElementById('sessionsContainer');
+            
+            if (sessions.length === 0) {
+                container.innerHTML = '<div class="empty-state">No active sessions</div>';
+                return;
+            }
+            
+            const table = document.createElement('table');
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Session ID</th>
+                        <th>Status</th>
+                        <th>Budget</th>
+                        <th>Spent</th>
+                        <th>Remaining</th>
+                        <th>Usage</th>
+                        <th>Req/min</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${sessions.map(s => `
+                        <tr>
+                            <td><strong>${s.session_id}</strong></td>
+                            <td>
+                                ${s.is_frozen 
+                                    ? `<span class="badge frozen">Frozen</span><br><small>${s.freeze_reason || ''}</small>`
+                                    : `<span class="badge active">Active</span>`
+                                }
+                            </td>
+                            <td>$${s.budget.toFixed(4)}</td>
+                            <td>$${s.spent.toFixed(4)}</td>
+                            <td>$${s.remaining.toFixed(4)}</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill ${
+                                        s.percentage_used > 90 ? 'danger' : 
+                                        s.percentage_used > 70 ? 'warning' : ''
+                                    }" style="width: ${Math.min(s.percentage_used, 100)}%"></div>
+                                </div>
+                                <small>${s.percentage_used.toFixed(1)}%</small>
+                            </td>
+                            <td>${s.requests_last_minute}</td>
+                            <td>
+                                <div class="actions">
+                                    ${s.is_frozen 
+                                        ? `<button class="btn-small btn-unfreeze" onclick="unfreezeSession('${s.session_id}')">Unfreeze</button>`
+                                        : ''
+                                    }
+                                    <button class="btn-small btn-reset" onclick="resetSession('${s.session_id}')">Reset</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+            
+            container.innerHTML = '';
+            container.appendChild(table);
+        }
+        
+        async function unfreezeSession(sessionId) {
+            if (!confirm(`Unfreeze session "${sessionId}"?`)) return;
+            
+            try {
+                const response = await fetch(`/api/dashboard/session/${sessionId}/unfreeze`, {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    alert('Session unfrozen');
+                    loadData();
+                } else {
+                    alert('Failed to unfreeze session');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        async function resetSession(sessionId) {
+            if (!confirm(`Reset session "${sessionId}"? This will clear budget and spending.`)) return;
+            
+            try {
+                const response = await fetch(`/api/dashboard/session/${sessionId}/reset`, {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    alert('Session reset');
+                    loadData();
+                } else {
+                    alert('Failed to reset session');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        // Load data on page load
+        loadData();
+        
+        // Auto-refresh every 10 seconds
+        setInterval(loadData, 10000);
+    </script>
+</body>
+</html>
+

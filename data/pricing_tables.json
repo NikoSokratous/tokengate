@@ -1,0 +1,181 @@
+{
+  "_comment": "OpenAI API Pricing - Last Updated: November 2025",
+  "_note": "Prices are per 1,000 tokens (input/output). Verify current prices at platform.openai.com/pricing",
+  "_source": "Based on OpenAI official pricing as of November 2025",
+  
+  "gpt-5": {
+    "input": 0.00125,
+    "output": 0.01,
+    "_description": "GPT-5 - Latest flagship model with 1M token context, multimodal (text/image/audio/video)"
+  },
+  "gpt-5-mini": {
+    "input": 0.00025,
+    "output": 0.002,
+    "_description": "GPT-5 Mini - Cost-effective GPT-5 variant, faster responses"
+  },
+  "gpt-5-nano": {
+    "input": 0.00005,
+    "output": 0.0004,
+    "_description": "GPT-5 Nano - Most affordable GPT-5, ideal for simple tasks"
+  },
+  "gpt-4.5": {
+    "input": 0.075,
+    "output": 0.15,
+    "_description": "GPT-4.5 - Advanced model between GPT-4 and GPT-5, released Feb 2025"
+  },
+  "gpt-4o": {
+    "input": 0.0025,
+    "output": 0.01,
+    "_description": "GPT-4o - Multimodal flagship, high intelligence"
+  },
+  "gpt-4o-2024-11-20": {
+    "input": 0.0025,
+    "output": 0.01,
+    "_description": "GPT-4o dated snapshot"
+  },
+  "gpt-4o-2024-08-06": {
+    "input": 0.0025,
+    "output": 0.01,
+    "_description": "GPT-4o dated snapshot"
+  },
+  "gpt-4o-2024-05-13": {
+    "input": 0.005,
+    "output": 0.015,
+    "_description": "GPT-4o older snapshot"
+  },
+  "gpt-4o-mini": {
+    "input": 0.00015,
+    "output": 0.0006,
+    "_description": "GPT-4o Mini - Affordable and intelligent small model"
+  },
+  "gpt-4o-mini-2024-07-18": {
+    "input": 0.00015,
+    "output": 0.0006,
+    "_description": "GPT-4o Mini dated snapshot"
+  },
+  "o1-pro": {
+    "input": 0.15,
+    "output": 0.6,
+    "_description": "o1 Pro - Premium reasoning model for complex queries, highest compute"
+  },
+  "o1-preview": {
+    "input": 0.015,
+    "output": 0.06,
+    "_description": "o1 Preview - Advanced reasoning model for complex tasks"
+  },
+  "o1-preview-2024-09-12": {
+    "input": 0.015,
+    "output": 0.06,
+    "_description": "o1 Preview dated snapshot"
+  },
+  "o1-mini": {
+    "input": 0.003,
+    "output": 0.012,
+    "_description": "o1 Mini - Faster reasoning model, more affordable"
+  },
+  "o1-mini-2024-09-12": {
+    "input": 0.003,
+    "output": 0.012,
+    "_description": "o1 Mini dated snapshot"
+  },
+  "o3": {
+    "input": 0.01,
+    "output": 0.04,
+    "_description": "o3 - Versatile reasoning model for various applications"
+  },
+  "o3-mini": {
+    "input": 0.002,
+    "output": 0.008,
+    "_description": "o3 Mini - Compact reasoning model, cost-effective"
+  },
+  "gpt-4-turbo": {
+    "input": 0.01,
+    "output": 0.03,
+    "_description": "GPT-4 Turbo - Previous generation flagship, 128K context"
+  },
+  "gpt-4-turbo-2024-04-09": {
+    "input": 0.01,
+    "output": 0.03,
+    "_description": "GPT-4 Turbo dated snapshot"
+  },
+  "gpt-4-turbo-preview": {
+    "input": 0.01,
+    "output": 0.03,
+    "_description": "GPT-4 Turbo Preview"
+  },
+  "gpt-4-0125-preview": {
+    "input": 0.01,
+    "output": 0.03,
+    "_description": "GPT-4 Turbo preview snapshot"
+  },
+  "gpt-4-1106-preview": {
+    "input": 0.01,
+    "output": 0.03,
+    "_description": "GPT-4 Turbo preview snapshot"
+  },
+  "gpt-4": {
+    "input": 0.03,
+    "output": 0.06,
+    "_description": "GPT-4 - Original GPT-4 8K context"
+  },
+  "gpt-4-0613": {
+    "input": 0.03,
+    "output": 0.06,
+    "_description": "GPT-4 dated snapshot"
+  },
+  "gpt-4-32k": {
+    "input": 0.06,
+    "output": 0.12,
+    "_description": "GPT-4 32K context window"
+  },
+  "gpt-4-32k-0613": {
+    "input": 0.06,
+    "output": 0.12,
+    "_description": "GPT-4 32K dated snapshot"
+  },
+  "gpt-3.5-turbo": {
+    "input": 0.0005,
+    "output": 0.0015,
+    "_description": "GPT-3.5 Turbo - Fast and affordable, legacy model"
+  },
+  "gpt-3.5-turbo-0125": {
+    "input": 0.0005,
+    "output": 0.0015,
+    "_description": "GPT-3.5 Turbo dated snapshot"
+  },
+  "gpt-3.5-turbo-1106": {
+    "input": 0.001,
+    "output": 0.002,
+    "_description": "GPT-3.5 Turbo older snapshot"
+  },
+  "gpt-3.5-turbo-16k": {
+    "input": 0.003,
+    "output": 0.004,
+    "_description": "GPT-3.5 Turbo 16K context, legacy"
+  },
+  "text-embedding-3-small": {
+    "input": 0.00002,
+    "output": 0.0,
+    "_description": "Embedding V3 Small - Higher performance at lower cost, 1536 dimensions"
+  },
+  "text-embedding-3-large": {
+    "input": 0.00013,
+    "output": 0.0,
+    "_description": "Embedding V3 Large - Most capable embedding model, 3072 dimensions"
+  },
+  "text-embedding-ada-002": {
+    "input": 0.0001,
+    "output": 0.0,
+    "_description": "Embedding Ada v2 - Previous generation, 1536 dimensions"
+  },
+  "davinci-002": {
+    "input": 0.002,
+    "output": 0.002,
+    "_description": "Legacy Davinci base model"
+  },
+  "babbage-002": {
+    "input": 0.0004,
+    "output": 0.0004,
+    "_description": "Legacy Babbage base model"
+  }
+}
